@@ -211,7 +211,7 @@ public class Driver {
         opt.setSchemaLanguage(Language.XMLSCHEMA);  // disable auto-guessing
         try {
             opt.parseArguments(args);
-        } catch (WeAreDone _) {
+        } catch (WeAreDone ex) {
             return -1;
         } catch(BadCommandLineException e) {
             e.initOptions(opt);

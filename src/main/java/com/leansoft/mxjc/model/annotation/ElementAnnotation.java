@@ -6,6 +6,17 @@ import com.leansoft.mxjc.util.StringUtil;
 public class ElementAnnotation implements Annotatable {
 	
 	private String name = "";
+   private String fieldNamespace = "";
+
+   public String getFieldNamespace()
+   {
+      return fieldNamespace;
+   }
+
+   public void setFieldNamespace(String fieldNamespace)
+   {
+      this.fieldNamespace = fieldNamespace;
+   }
 	
 	public String getName() {
 		return name;
@@ -17,15 +28,21 @@ public class ElementAnnotation implements Annotatable {
 	
 	@Override
 	public boolean isParameterProvided() {
-		return !StringUtil.isEmpty(name);
+		return !StringUtil.isEmpty(name) || !StringUtil.isEmpty(fieldNamespace);
 	}
 
 	
 	public String toString() {
 		String value = "";
 		if (!StringUtil.isEmpty(name)) {
-			value += "name = \"" + name + "\"";;
+			value += "name = \"" + name + "\"";
 		}
+      if (!StringUtil.isEmpty(fieldNamespace)) {
+         if (!StringUtil.isEmpty(value)) {
+            value +=", ";
+         }
+         value += "namespace = \""+ fieldNamespace+"\"";
+      }
 		value = "Element(" + value + ")";
 		return value;
 	}

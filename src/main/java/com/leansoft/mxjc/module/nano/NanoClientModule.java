@@ -16,6 +16,7 @@ import com.leansoft.mxjc.model.EnumInfo;
 import com.leansoft.mxjc.model.FieldInfo;
 import com.leansoft.mxjc.model.FileInfo;
 import com.leansoft.mxjc.model.TypeInfo;
+import com.leansoft.mxjc.model.annotation.ElementAnnotation;
 import com.leansoft.mxjc.module.AbstractClientModule;
 import com.leansoft.mxjc.module.ModuleName;
 import com.leansoft.mxjc.module.XjcModuleException;
@@ -81,6 +82,7 @@ public class NanoClientModule extends AbstractClientModule {
 		// generate classes
 		info("Generating classes ...");
 		for(ClassInfo classInfo : cgModel.getClasses()) {
+			this.fillNamespacesForFields(cgModel, classInfo);
 			this.convertFieldsType(classInfo);
 			fmModel.put("clazz", classInfo);
 			fmModel.put("imports", this.getClassImports(classInfo));
@@ -101,6 +103,30 @@ public class NanoClientModule extends AbstractClientModule {
 		return targetFileSet;
 	}
 	
+   private void fillNamespacesForFields(CGModel cgModel, ClassInfo clazz) {
+      String outerClassNamespace = clazz.getXmlTypeAnnotation().getNamespace();
+		for (FieldInfo field : clazz.getFields()) {
+			TypeInfo fieldType = field.getType();
+			ClassInfo fieldTypeClassInfo = cgModel.getClassByFullName(fieldType.getFullName());
+			if (fieldTypeClassInfo == null) {
+				for (TypeInfo paraType : fieldType.getTypeParameters()) {
+					fieldTypeClassInfo = cgModel.getClassByFullName(paraType.getFullName());
+					if (fieldTypeClassInfo != null)
+					{
+						break;
+					}
+				} 
+			}
+			if (fieldTypeClassInfo != null && outerClassNamespace != null && !outerClassNamespace.equals(fieldTypeClassInfo.getXmlTypeAnnotation().getNamespace()))
+         {
+            ElementAnnotation elementAnnotation = field.getElementAnnotation()!= null ? field.getElementAnnotation() : new ElementAnnotation();
+            elementAnnotation.setFieldNamespace(fieldTypeClassInfo.getXmlTypeAnnotation().getNamespace());
+            field.setElementAnnotation(elementAnnotation);
+         }
+			// convert type parameters
+			
+		}
+   }
 	/**
 	 * check every field of a class and convert type if necessary
 	 * 

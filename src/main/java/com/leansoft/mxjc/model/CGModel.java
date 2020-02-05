@@ -15,6 +15,17 @@ public class CGModel {
 	
 	private final List<EnumInfo> enums = new ArrayList<EnumInfo>();
 
+   public ClassInfo getClassByFullName(String fullName)
+   {
+      for(ClassInfo classInfo : classes) 
+      {      
+         if (classInfo.getFullName().equals(fullName))
+         {
+            return classInfo;
+         }
+      }
+      return null;
+   }
     /**
      *  Class model for codegen
      * @return List<ClassInfo>

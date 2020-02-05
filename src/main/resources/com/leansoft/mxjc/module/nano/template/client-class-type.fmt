@@ -11,7 +11,8 @@ import ${import};
 [/#list]
 
 [#-- avoid conflict with nano Element annotation --]
-[#assign has_w3c_dom_element = imports?seq_contains("org.w3c.dom.Element")]
+[#-- assign has_w3c_dom_element = imports?seq_contains("org.w3c.dom.Element") --]
+[#assign has_w3c_dom_element = true ]
 
 [#if clazz.docComment??]
 /**

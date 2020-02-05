@@ -14,8 +14,33 @@
         <connection>scm:git:git@github.com:bulldog2011/mxjc.git</connection>
         <developerConnection>scm:git:git@github.com:bulldog2011/mxjc.git</developerConnection>
         <url>https://github.com/bulldog2011/mxjc</url>
-    <tag>mxjc-0.6.0</tag>
+    <tag>mxjc-0.6.2</tag>
   </scm>
+   <repositories>
+      <repository>
+         <id>central</id>
+         <name>Repository for all allowable at SCC artifacts</name>
+         <url>http://nexus:8081/content/groups/public/</url>
+         <releases>
+            <enabled>true</enabled>
+         </releases>
+         <snapshots>
+            <enabled>true</enabled>
+         </snapshots>
+      </repository>
+   </repositories>
+   <pluginRepositories>
+      <pluginRepository>
+         <id>central</id>
+         <url>http://nexus:8081/content/groups/public/</url>
+         <releases>
+            <enabled>true</enabled>
+         </releases>
+         <snapshots>
+            <enabled>false</enabled>
+         </snapshots>
+      </pluginRepository>
+   </pluginRepositories>
     <licenses>
         <license>
             <name>The MIT License (MIT)</name>
@@ -37,14 +62,14 @@
    
   <distributionManagement>
     <repository>
-      <id>github.release.repo</id>
+      <id>local.release.repo</id>
       <name>Release Repository</name>
-      <url>file:///Volumes/DATA/dev/bulldog-repo/repo/releases</url>
+      <url>file:repo/releases</url>
     </repository>
     <snapshotRepository>
-      <id>github.snapshot.repo</id>
+      <id>local.snapshot.repo</id>
       <name>Snapshot Repository</name>
-      <url>file:///Volumes/DATA/dev/bulldog-repo/repo/snapshots</url>
+      <url>file:repo/releases/snapshots</url>
     </snapshotRepository>
   </distributionManagement>
   
@@ -123,7 +148,7 @@
                 </configuration>
             </plugin>
             
-            <plugin>
+            <!-- <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
@@ -143,7 +168,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> -->
 	      
 	      <plugin>
 	        <groupId>org.codehaus.mojo</groupId>
@@ -232,4 +257,5 @@
         </pluginManagement>
         
 	</build>
+
 </project>
