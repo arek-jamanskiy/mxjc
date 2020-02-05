@@ -64,12 +64,12 @@
     <repository>
       <id>local.release.repo</id>
       <name>Release Repository</name>
-      <url>file:repo/releases</url>
+      <url>file:///dev/bulldog-repo/repo/releases</url>
     </repository>
     <snapshotRepository>
       <id>local.snapshot.repo</id>
       <name>Snapshot Repository</name>
-      <url>file:repo/releases/snapshots</url>
+      <url>file:///dev/bulldog-repo/repo/snapshots</url>
     </snapshotRepository>
   </distributionManagement>
   
